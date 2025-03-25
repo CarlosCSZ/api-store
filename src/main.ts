@@ -1,12 +1,13 @@
 import { NestFactory } from '@nestjs/core';
+import { ValidationPipe } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 
 import helmet from 'helmet';
 
 import { AppModule } from './app.module';
-import { ValidationPipe } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { HttpExceptionFilter } from '@common/filters/http-exception.filter';
 import { AppConfig } from '@shared/config/app.config';
+import { swaggerSetup } from '@shared/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -23,6 +24,7 @@ async function bootstrap() {
     }),
   );
   app.enableShutdownHooks();
+  swaggerSetup(app);
 
   const config = app.get<ConfigService<AppConfig>>(ConfigService);
   try {

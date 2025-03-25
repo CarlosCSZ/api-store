@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { AppConfig } from '@shared/config/app.config';
+import { TokenResponse } from './dtos/auth.dto';
 
 @Injectable()
 export class AuthService {
@@ -19,7 +20,7 @@ export class AuthService {
     return apiKey === this.secret;
   }
 
-  login(apiKey: string): { access_token: string } {
+  login(apiKey: string): TokenResponse {
     if (!this.validateApiKey(apiKey)) {
       throw new UnauthorizedException();
     }
