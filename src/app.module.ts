@@ -1,13 +1,12 @@
 import { AppInfrastructureModule } from '@infrastructure/app-infrastructure.module';
 import { Module } from '@nestjs/common';
 
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { AppConfigModule } from '@shared/config/config.module';
+import { AuthModule } from './shared/auth/auth.module';
 
 @Module({
-  imports: [AppConfigModule, AppInfrastructureModule],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [AppConfigModule, AppInfrastructureModule, AuthModule],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

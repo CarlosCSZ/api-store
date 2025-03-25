@@ -1,8 +1,19 @@
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Put,
+  UseGuards,
+} from '@nestjs/common';
+
 import { OrderService } from '@application/services/order.service';
 import { CreateOrderDto, UpdateOrderDto } from '@infrastructure/dtos/order.dto';
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import { ApiKeyGuard } from '@shared/auth/guards/api-key.guard';
 
 @Controller('orders')
+@UseGuards(ApiKeyGuard)
 export class OrderController {
   constructor(private readonly orderService: OrderService) {}
 
