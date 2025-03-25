@@ -1,10 +1,10 @@
 {
   "name": "api-store",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "This monolith server provides the API for a store.",
+  "author": "CarlosCSZ",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "MIT",
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
@@ -22,7 +22,12 @@
   "dependencies": {
     "@nestjs/common": "^11.0.1",
     "@nestjs/core": "^11.0.1",
+    "@nestjs/mongoose": "^11.0.2",
     "@nestjs/platform-express": "^11.0.1",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.1",
+    "helmet": "^8.1.0",
+    "mongoose": "^8.13.0",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1"
   },
@@ -59,8 +64,15 @@
       "json",
       "ts"
     ],
-    "rootDir": "src",
+    "rootDir": "test",
     "testRegex": ".*\\.spec\\.ts$",
+    "moduleNameMapper": {
+      "^@common/(.*)$": "<rootDir>/../src/common/$1",
+      "^@shared/(.*)$": "<rootDir>/../src/shared/$1",
+      "^@domain/(.*)$": "<rootDir>/../src/context/domain/$1",
+      "^@application/(.*)$": "<rootDir>/../src/context/application/$1",
+      "^@infrastructure/(.*)$": "<rootDir>/../src/context/infrastructure/$1"
+    },
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },
@@ -69,5 +81,10 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
+  },
+  "pnpm": {
+    "ignoredBuiltDependencies": [
+      "@nestjs/core"
+    ]
   }
 }
