@@ -20,9 +20,7 @@
     "paths": {
       "@shared/*": ["./src/shared/*"],
       "@common/*": ["./src/common/*"],
-      "@domain/*": ["./src/context/domain/*"],
-      "@application/*": ["./src/context/application/*"],
-      "@infrastructure/*": ["./src/context/infrastructure/*"]
+      "@modules/*": ["./src/modules/*"],
     }
   }
 }
