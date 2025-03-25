@@ -18,7 +18,7 @@ export class OrderMongoRepository implements OrderRepository {
 
   async findSorted(
     query: FilterQuery<Order>,
-    sort: Record<string, any>,
+    sort: Record<string, any> | string,
     limit: number,
   ): Promise<Order[]> {
     return this.orderModel.find(query).sort(sort).limit(limit).exec();

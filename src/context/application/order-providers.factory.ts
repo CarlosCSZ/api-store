@@ -5,6 +5,7 @@ import {
   UpdateOrderUseCase,
 } from './useCases/order';
 import { OrderRepository } from '@domain/repositories';
+import { FindOrderByIdUseCase } from './useCases/order/find-by-id.order.use-case';
 
 const createOrderFactory = (orderRepo: OrderRepository) =>
   new CreateOrderUseCase(orderRepo);
@@ -38,9 +39,18 @@ const updateOrderProvider = {
   inject: [OrderRepository],
 };
 
+const findOrderByIdFactory = (orderRepo: OrderRepository) =>
+  new FindOrderByIdUseCase(orderRepo);
+const findOrderByIdProvider = {
+  provide: FindOrderByIdUseCase,
+  useFactory: findOrderByIdFactory,
+  inject: [OrderRepository],
+};
+
 export {
   createOrderProvider,
   updateOrderProvider,
   findWithHigherTotalProvider,
   findTotalSoldLastMonthProvider,
+  findOrderByIdProvider,
 };

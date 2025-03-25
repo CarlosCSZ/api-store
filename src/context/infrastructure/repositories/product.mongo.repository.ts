@@ -25,6 +25,15 @@ export class ProductMongoRepository implements ProductRepository {
     return product.toJSON();
   }
 
+  async findBySku(sku: string): Promise<Product> {
+    const product = await this.productModel.findOne({ sku }).exec();
+    if (!product) {
+      throw new NotFoundException(`Product with sku ${sku} not found`);
+    }
+
+    return product.toJSON();
+  }
+
   async create(product: Product): Promise<Product> {
     return this.productModel.create(product);
   }

@@ -5,7 +5,7 @@ import mongoose from 'mongoose';
 import { Product, Order } from '@domain/entities';
 import { ProductMongoSchema } from './product.schema';
 
-@Schema()
+@Schema({ timestamps: true })
 export class OrderMongoSchema implements Order {
   @Prop({ required: true })
   clientName: string;

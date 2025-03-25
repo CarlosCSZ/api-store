@@ -7,24 +7,15 @@ export class TotalSoldLastMonthUseCase {
     const orders = await this.orderRepository.findWithFilters([
       {
         $match: {
-          createdAt: { $gte: start, $lt: end },
+          createdAt: { $gte: start, $lte: end },
         },
       },
-      {
-        $lookup: {
-          from: 'products',
-          localField: 'productList',
-          foreignField: 'sku',
-          as: 'productList',
-        },
-      },
-      { $unwind: '$products' },
     ]);
     let sum = 0;
     for (const order of orders) {
       sum += Number(order.total);
     }
 
-    return `$ ${sum.toPrecision(2)}`;
+    return `$${sum.toFixed(2)}`;
   }
 }

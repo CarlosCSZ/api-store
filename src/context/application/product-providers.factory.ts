@@ -1,5 +1,9 @@
 import { ProductRepository } from '@domain/repositories';
-import { CreateProductUseCase, FindProductUseCase } from './useCases/product';
+import {
+  CreateProductUseCase,
+  FindProductByIdUseCase,
+  FindProductBySkuUseCase,
+} from './useCases/product';
 
 const createProductFactory = (productRepo: ProductRepository) =>
   new CreateProductUseCase(productRepo);
@@ -9,12 +13,24 @@ const createProductProvider = {
   inject: [ProductRepository],
 };
 
-const findProductFactory = (productRepo: ProductRepository) =>
-  new FindProductUseCase(productRepo);
-const findProductProvider = {
-  provide: FindProductUseCase,
-  useFactory: findProductFactory,
+const findProductByIdFactory = (productRepo: ProductRepository) =>
+  new FindProductByIdUseCase(productRepo);
+const findProductByIdProvider = {
+  provide: FindProductByIdUseCase,
+  useFactory: findProductByIdFactory,
   inject: [ProductRepository],
 };
 
-export { createProductProvider, findProductProvider };
+const findProductBySkuFactory = (productRepo: ProductRepository) =>
+  new FindProductBySkuUseCase(productRepo);
+const findProductBySkuProvider = {
+  provide: FindProductBySkuUseCase,
+  useFactory: findProductBySkuFactory,
+  inject: [ProductRepository],
+};
+
+export {
+  createProductProvider,
+  findProductByIdProvider,
+  findProductBySkuProvider,
+};

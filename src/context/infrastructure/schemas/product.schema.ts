@@ -2,7 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 import { Product } from '@domain/entities';
 
-@Schema()
+@Schema({ timestamps: true })
 export class ProductMongoSchema implements Product {
   @Prop({ required: true, unique: true })
   sku: string;

@@ -11,10 +11,12 @@ import { ProductService } from '@application/services/product.service';
 import { OrderService } from '@application/services/order.service';
 import {
   createProductProvider,
-  findProductProvider,
+  findProductByIdProvider,
+  findProductBySkuProvider,
 } from '@application/product-providers.factory';
 import {
   createOrderProvider,
+  findOrderByIdProvider,
   findTotalSoldLastMonthProvider,
   findWithHigherTotalProvider,
   updateOrderProvider,
@@ -37,11 +39,13 @@ import { DATABASES } from '@common/constants/databases.enum';
     ProductService,
     OrderService,
     createProductProvider,
-    findProductProvider,
+    findProductByIdProvider,
+    findProductBySkuProvider,
     createOrderProvider,
     updateOrderProvider,
     findWithHigherTotalProvider,
     findTotalSoldLastMonthProvider,
+    findOrderByIdProvider,
     {
       provide: ProductRepository,
       useClass: ProductMongoRepository,

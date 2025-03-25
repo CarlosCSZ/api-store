@@ -1,3 +1,3 @@
 export enum DATABASES {
-  MONGO = 'mongoConnection',
+  MONGO = 'mongodb',
 }

@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import {
   CreateProductUseCase,
-  FindProductUseCase,
+  FindProductBySkuUseCase,
 } from '@application/useCases/product';
 import { Product } from '@domain/entities';
 import { CreateProductDto } from '@infrastructure/dtos/product.dto';
@@ -11,7 +11,7 @@ import { CreateProductDto } from '@infrastructure/dtos/product.dto';
 export class ProductService {
   constructor(
     private readonly createProductUseCase: CreateProductUseCase,
-    private readonly findProductUseCase: FindProductUseCase,
+    private readonly findProductUseCase: FindProductBySkuUseCase,
   ) {}
 
   async findById(id: string): Promise<Product> {
