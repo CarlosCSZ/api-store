@@ -27,6 +27,6 @@ const env = (process.env.NODE_ENV || '').toLowerCase();
     }),
   ],
   controllers: [],
-  providers: [ConfigModule, MongooseModule],
+  providers: [ConfigModule],
 })
 export class AppConfigModule {}

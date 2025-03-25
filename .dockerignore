@@ -1,0 +1,25 @@
+node_modules
+*.log
+pnpm-debug.log*
+npm-debug.log*
+
+.env
+dist
+
+# tests
+coverage
+*.test.*
+*.spec.*
+__tests__/
+__mocks__/
+
+.vscode/
+Dockerfile*
+
+.git
+.gitignore
+.gitmodules
+.gitattributes
+
+.DS_Store
+Thumbs.db
