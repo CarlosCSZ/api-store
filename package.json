@@ -1,7 +1,7 @@
 {
   "name": "api-store",
   "version": "0.0.1",
-  "description": "This monolith server provides the API for a store.",
+  "description": "This is a monolithic server that provides the APIs for a store app.",
   "author": "CarlosCSZ",
   "private": true,
   "license": "MIT",
