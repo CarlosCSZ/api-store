@@ -43,6 +43,33 @@ $ pnpm run test:e2e
 $ pnpm run test:cov
 ```
 
+## Integrating with AWS Bucket
+AWS S3 bucket is used to store images. In order to use it follow the steps below:
+- Create a bucket in AWS.
+- Go to IAM console a create a user specific to your bucket using the following policy:
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:PutObject",
+        "s3:GetObject",
+        "s3:ListBucket"
+      ],
+      "Resource": [
+        "arn:aws:s3:::my_buckett",
+        "arn:aws:s3:::my_bucket/*"
+      ]
+    }
+  ]
+}
+```
+- Create a credential to this user for programatic access. This credential will provides you with the following keys:
+> - `AWS_ACCESS_KEY_ID`
+> - `AWS_SECRET_ACCESS_KEY`
+
 ## Environment Variables
 
 > - `HTTP_PORT`
@@ -61,3 +88,15 @@ $ pnpm run test:cov
 >   - **Description**: Database within mongoDB
 >   - **Type**: string
 >   - **Example**: api_store
+> - `AWS_KEY_ID`
+>   - **Description**: The AWS secret key ID
+>   - **Type**: string
+>   - **Example**: aws_key_id
+> - `AWS_SECRET_KEY`
+>   - **Description**: The AWS secret key
+>   - **Type**: string
+>   - **Example**: aws_secret_key
+> - `AWS_BUCKET_NAME`
+>   - **Description**: The AWS bucket name
+>   - **Type**: string
+>   - **Example**: my_bucket

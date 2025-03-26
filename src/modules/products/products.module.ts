@@ -14,7 +14,9 @@ import { ProductMongoRepository } from './infrastructure/repositories/product.mo
 import { Product } from './domain/entities';
 import { ProductSchema } from './infrastructure/schemas';
 import { DATABASES } from '@common/constants';
-import { FILE_DIR } from '@common/constants';
+import { BucketStorage } from './domain/storage/bucket.storage';
+import { S3Service } from './infrastructure/services/s3.service';
+import { fileFilterImages } from '@common/utils';
 
 @Module({
   imports: [
@@ -23,10 +25,10 @@ import { FILE_DIR } from '@common/constants';
       DATABASES.MONGO,
     ),
     MulterModule.register({
-      dest: FILE_DIR,
       limits: {
         fileSize: 1024 * 1024 * 5,
       },
+      fileFilter: fileFilterImages,
     }),
   ],
   controllers: [ProductController],
@@ -39,7 +41,11 @@ import { FILE_DIR } from '@common/constants';
       provide: ProductRepository,
       useClass: ProductMongoRepository,
     },
+    {
+      provide: BucketStorage,
+      useClass: S3Service,
+    },
   ],
-  exports: [ProductService, findProductByIdProvider],
+  exports: [ProductService, findProductByIdProvider, BucketStorage],
 })
 export class ProductsModule {}

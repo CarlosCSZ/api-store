@@ -3,7 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 
 import { DATABASES } from 'src/common/constants/databases.enum';
-import appConfig, { AppConfig } from './app.config';
+import appConfig, { IAppConfig } from './app.config';
 import { ENVIRONMENTS } from '@common/constants/environments.enum';
 
 const env = (process.env.NODE_ENV || '').toLowerCase();
@@ -22,7 +22,7 @@ const env = (process.env.NODE_ENV || '').toLowerCase();
       connectionName: DATABASES.MONGO,
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: async (configService: ConfigService<AppConfig>) =>
+      useFactory: async (configService: ConfigService<IAppConfig>) =>
         configService.get('db')[DATABASES.MONGO],
     }),
   ],

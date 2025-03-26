@@ -6,6 +6,7 @@ import { IsNumber, IsString } from 'class-validator';
 import { validatePlainInputSync } from '@common/utils/validation';
 import { DATABASES } from '@common/constants/databases.enum';
 import dbConfig from './db.config';
+import awsConfig, { IAwsConfig } from './aws.config';
 
 export class AppEnvVariables {
   @IsNumber()
@@ -18,18 +19,20 @@ export class AppEnvVariables {
   SHARED_SECRET: string;
 }
 
-export interface AppConfig {
+export interface IAppConfig {
   httPort: number;
   secret: string;
   db: Record<DATABASES, MongooseModuleFactoryOptions>;
+  aws: IAwsConfig;
 }
 
-export default (): AppConfig => {
+export default (): IAppConfig => {
   const envs = validatePlainInputSync(AppEnvVariables, process.env);
 
   return {
     httPort: envs.HTTP_PORT,
     secret: envs.SHARED_SECRET,
     db: dbConfig(),
+    aws: awsConfig(),
   };
 };

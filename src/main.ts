@@ -6,7 +6,7 @@ import helmet from 'helmet';
 
 import { AppModule } from './app.module';
 import { HttpExceptionFilter } from '@common/filters/http-exception.filter';
-import { AppConfig } from '@shared/config/app.config';
+import { IAppConfig } from '@shared/config/app.config';
 import { swaggerSetup } from '@shared/swagger';
 
 async function bootstrap() {
@@ -37,7 +37,7 @@ async function bootstrap() {
   app.enableShutdownHooks();
   swaggerSetup(app);
 
-  const config = app.get<ConfigService<AppConfig>>(ConfigService);
+  const config = app.get<ConfigService<IAppConfig>>(ConfigService);
   try {
     await app.listen(config.get<number>('httPort') ?? 3000);
     console.log(`API Store is running on: ${await app.getUrl()}`);

@@ -18,9 +18,7 @@ import {
 } from './infrastructure/dtos/product.dto';
 import { ApiKeyGuard } from '@shared/auth/guards/api-key.guard';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
-import { FILE_DIR } from '@common/constants';
-import { fileFilterImages, fileNameManager } from '@common/utils';
+import { memoryStorage } from 'multer';
 
 @ApiTags('Products')
 @Controller('products')
@@ -38,21 +36,12 @@ export class ProductController {
 
   @ApiOperation({ summary: 'Create a product' })
   @ApiResponse({ status: HttpStatus.CREATED, type: ProductResponse })
-  @UseInterceptors(
-    FileInterceptor('picture', {
-      storage: diskStorage({
-        filename: fileNameManager,
-        destination: FILE_DIR,
-      }),
-      fileFilter: fileFilterImages,
-    }),
-  )
+  @UseInterceptors(FileInterceptor('picture', { storage: memoryStorage() }))
   @Post()
   async create(
     @UploadedFile() file: Express.Multer.File,
     @Body() data: CreateProductDto,
   ) {
-    data.picture = file.filename;
-    return await this.productService.create(data);
+    return await this.productService.create(file, data);
   }
 }
