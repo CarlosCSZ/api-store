@@ -8,7 +8,7 @@ import {
   Put,
   UseGuards,
 } from '@nestjs/common';
-import { ApiOperation, ApiParam, ApiResponse } from '@nestjs/swagger';
+import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { OrderService } from './application/services/order.service';
 import {
@@ -19,6 +19,7 @@ import {
 } from './infrastructure/dtos/order.dto';
 import { ApiKeyGuard } from '@shared/auth/guards/api-key.guard';
 
+@ApiTags('Orders')
 @Controller('orders')
 @UseGuards(ApiKeyGuard)
 export class OrderController {

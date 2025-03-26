@@ -1,5 +1,5 @@
 import { NestFactory } from '@nestjs/core';
-import { ValidationPipe } from '@nestjs/common';
+import { RequestMethod, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
 import helmet from 'helmet';
@@ -15,7 +15,18 @@ async function bootstrap() {
   app.enableCors();
   app.use(helmet());
   app.useGlobalFilters(new HttpExceptionFilter());
-  app.setGlobalPrefix('api');
+  app.setGlobalPrefix('api', {
+    exclude: [
+      {
+        method: RequestMethod.GET,
+        path: '/healthz',
+      },
+      {
+        method: RequestMethod.GET,
+        path: '/liveness',
+      },
+    ],
+  });
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,

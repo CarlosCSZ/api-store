@@ -2,7 +2,7 @@ import { INestApplication } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 import { AUTHORIZATION_HEADER } from '@common/constants';
-import { getVersion } from '@common/utils';
+import { getPkgVersion } from '@common/utils';
 
 export const swaggerSetup = (app: INestApplication) => {
   const options = new DocumentBuilder()
@@ -13,7 +13,7 @@ export const swaggerSetup = (app: INestApplication) => {
       'https://www.linkedin.com/in/carloscherrez',
       'ccherrez18@gmail',
     )
-    .setVersion(getVersion())
+    .setVersion(getPkgVersion())
     .addApiKey(
       {
         type: 'apiKey',

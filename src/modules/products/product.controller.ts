@@ -9,7 +9,7 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { ApiOperation, ApiParam, ApiResponse } from '@nestjs/swagger';
+import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { ProductService } from './application/services/product.service';
 import {
@@ -22,6 +22,7 @@ import { diskStorage } from 'multer';
 import { FILE_DIR } from '@common/constants';
 import { fileFilterImages, fileNameManager } from '@common/utils';
 
+@ApiTags('Products')
 @Controller('products')
 @UseGuards(ApiKeyGuard)
 export class ProductController {

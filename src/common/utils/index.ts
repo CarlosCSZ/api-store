@@ -1,3 +1,3 @@
 export * from './files';
-export * from './getVersion';
+export * from './getPkgVersion';
 export * from './validation';
