@@ -1,11 +1,11 @@
 import { Order } from '../entities';
 
 export abstract class OrderRepository {
-  abstract findWithFilters(query: any): Promise<Order[]>;
+  abstract findWithinRange(start: Date, end: Date): Promise<Order[]>;
   abstract findSorted(
-    query: Record<string, any>,
-    sort: Record<string, any> | string,
-    limit: number,
+    query: Partial<Order>,
+    sortedField?: keyof Order,
+    limit?: number,
   ): Promise<Order[]>;
   abstract findById(id: string): Promise<Order>;
   abstract create(order: Order): Promise<Order>;

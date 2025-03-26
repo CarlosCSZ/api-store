@@ -13,6 +13,8 @@ import {
   UpdateOrderDto,
 } from '../../infrastructure/dtos/order.dto';
 import { FindProductByIdUseCase } from '@modules/products/application/useCases';
+import { BucketStorage } from '@modules/products/domain/storage/bucket.storage';
+import { Product } from '@modules/products/domain/entities';
 
 @Injectable()
 export class OrderService {
@@ -23,6 +25,7 @@ export class OrderService {
     private readonly findWithHigherTotalUseCase: FindWithHigherTotalUseCase,
     private readonly findOrderByIdUseCase: FindOrderByIdUseCase,
     private readonly findProductUseCase: FindProductByIdUseCase,
+    private readonly bucketService: BucketStorage,
   ) {}
 
   async create(order: CreateOrderDto): Promise<Order> {
@@ -68,6 +71,12 @@ export class OrderService {
   }
 
   async findWithHigherTotal(): Promise<Order> {
-    return this.findWithHigherTotalUseCase.execute();
+    const orders = await this.findWithHigherTotalUseCase.execute();
+    (orders.productList as Product[]).forEach(async (product) => {
+      const url = this.bucketService.signUrl(product.picture);
+      product.picture = url;
+    });
+
+    return orders;
   }
 }

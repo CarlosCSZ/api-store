@@ -18,14 +18,45 @@ export class OrderMongoRepository implements OrderRepository {
 
   async findSorted(
     query: FilterQuery<Order>,
-    sort: Record<string, any> | string,
-    limit: number,
+    sortedField?: keyof Order,
+    limit?: number,
   ): Promise<Order[]> {
-    return this.orderModel.find(query).sort(sort).limit(limit).exec();
+    const aggregationPipe: PipelineStage[] = [
+      { $match: query },
+      ...(sortedField
+        ? sortedField === 'total'
+          ? ([
+              { $addFields: { totalAsNumber: { $toDouble: '$total' } } },
+              { $sort: { totalAsNumber: -1 } },
+            ] as PipelineStage[])
+          : ([{ $sort: { [sortedField]: -1 } }] as PipelineStage[])
+        : []),
+      ...(limit ? [{ $limit: limit }] : []),
+      {
+        $lookup: {
+          from: 'products',
+          localField: 'productList',
+          foreignField: '_id',
+          as: 'productList',
+        },
+      },
+    ];
+
+    return this.findByAggregate(aggregationPipe);
   }
 
-  async findWithFilters(query: PipelineStage[]): Promise<Order[]> {
-    return this.orderModel.aggregate(query);
+  async findWithinRange(start: Date, end: Date): Promise<Order[]> {
+    return this.findByAggregate([
+      {
+        $match: {
+          createdAt: { $gte: start, $lte: end },
+        },
+      },
+    ]);
+  }
+
+  private async findByAggregate(query: PipelineStage[]): Promise<Order[]> {
+    return this.orderModel.aggregate(query).exec();
   }
 
   async findById(id: string): Promise<Order> {
