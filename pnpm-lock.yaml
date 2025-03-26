@@ -47,6 +47,9 @@ importers:
       mongoose:
         specifier: ^8.13.0
         version: 8.13.0
+      multer:
+        specifier: 1.4.5-lts.2
+        version: 1.4.5-lts.2
       passport:
         specifier: ^0.7.0
         version: 0.7.0
@@ -2778,6 +2781,10 @@ packages:
 
   multer@1.4.5-lts.1:
     resolution: {integrity: sha512-ywPWvcDMeH+z9gQq5qYHCCy+ethsk4goepZ45GLD63fOu0YcNecQxi64nDs3qluZB+murG3/D4dJ7+dGctcCQQ==}
+    engines: {node: '>= 6.0.0'}
+
+  multer@1.4.5-lts.2:
+    resolution: {integrity: sha512-VzGiVigcG9zUAoCNU+xShztrlr1auZOlurXynNvO9GiWD1/mTBbUljOKY+qMeazBqXgRnjzeEgJI/wyjJUHg9A==}
     engines: {node: '>= 6.0.0'}
 
   mute-stream@2.0.0:
@@ -6682,6 +6689,16 @@ snapshots:
   ms@2.1.3: {}
 
   multer@1.4.5-lts.1:
+    dependencies:
+      append-field: 1.0.0
+      busboy: 1.6.0
+      concat-stream: 1.6.2
+      mkdirp: 0.5.6
+      object-assign: 4.1.1
+      type-is: 1.6.18
+      xtend: 4.0.2
+
+  multer@1.4.5-lts.2:
     dependencies:
       append-field: 1.0.0
       busboy: 1.6.0

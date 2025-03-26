@@ -1,6 +1,22 @@
 version: '3.1'
 
 services:
+  api-store:
+    build:
+      context: .
+    container_name: api-store-container
+    image: api-store
+    stop_signal: SIGINT
+    restart: always
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env.local
+    depends_on:
+     - mongodb
+    volumes:
+      - api_data:/opt/home/node
+
   mongodb:
     image: mongo:6.0.21
     container_name: mongo_container
@@ -15,3 +31,4 @@ services:
 
 volumes:
   mongo_data:
+  api_data:
