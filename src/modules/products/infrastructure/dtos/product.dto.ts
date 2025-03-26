@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsMongoId, IsOptional, IsString, Matches } from 'class-validator';
+import { IsOptional, IsString, Matches } from 'class-validator';
 import mongoose from 'mongoose';
 
 export class CreateProductDto {
@@ -13,6 +13,7 @@ export class CreateProductDto {
   name: string;
 
   @IsString()
+  @IsOptional()
   @ApiProperty({ type: String, description: 'Product picture' })
   picture: string;
 
@@ -23,7 +24,6 @@ export class CreateProductDto {
 }
 
 export class ProductResponse extends CreateProductDto {
-  @IsMongoId()
   @ApiProperty({
     type: mongoose.Schema.Types.ObjectId,
     description: 'Product ID',

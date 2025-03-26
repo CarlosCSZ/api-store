@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { MulterModule } from '@nestjs/platform-express';
 
 import { ProductController } from './product.controller';
 import { ProductService } from './application/services/product.service';
@@ -13,6 +14,7 @@ import { ProductMongoRepository } from './infrastructure/repositories/product.mo
 import { Product } from './domain/entities';
 import { ProductSchema } from './infrastructure/schemas';
 import { DATABASES } from '@common/constants';
+import { FILE_DIR } from '@common/constants';
 
 @Module({
   imports: [
@@ -20,6 +22,12 @@ import { DATABASES } from '@common/constants';
       [{ name: Product.name, schema: ProductSchema }],
       DATABASES.MONGO,
     ),
+    MulterModule.register({
+      dest: FILE_DIR,
+      limits: {
+        fileSize: 1024 * 1024 * 5,
+      },
+    }),
   ],
   controllers: [ProductController],
   providers: [

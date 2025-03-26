@@ -2,7 +2,7 @@ import { INestApplication } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 import { AUTHORIZATION_HEADER } from '@common/constants';
-import { getVersion } from '@common/utils/getVersion';
+import { getVersion } from '@common/utils';
 
 export const swaggerSetup = (app: INestApplication) => {
   const options = new DocumentBuilder()
